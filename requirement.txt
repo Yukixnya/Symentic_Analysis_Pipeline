@@ -1,0 +1,5 @@
+fastapi uvicorn
+sentence_transformers
+supabase
+textblob
+dotenv

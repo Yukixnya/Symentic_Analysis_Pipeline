@@ -1,0 +1,23 @@
+create function match_notes(
+  query_embedding vector(384),
+  match_count integer
+)
+returns table (
+  id bigint,
+  file_name text,
+  content text,
+  path text,
+  similarity float
+)
+language sql
+as $$
+  select
+    id,
+    file_name,
+    content,
+    path,
+    1 - (embedding <=> query_embedding) as similarity
+  from notes
+  order by embedding <=> query_embedding
+  limit match_count;
+$$;
